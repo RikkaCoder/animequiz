@@ -4,7 +4,7 @@
  * direttamente le password.
  */
 import { useState } from 'react';
-import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { PixelButton } from '@/components/PixelButton';
 import { useAuth } from '@/hooks/useAuth';
@@ -16,14 +16,20 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('');
   const [mode, setMode] = useState<'login' | 'signup'>('login');
   const [busy, setBusy] = useState(false);
+  const [errore, setErrore] = useState<string | null>(null);
 
   async function handleSubmit() {
+    setErrore(null);
     setBusy(true);
     try {
       if (mode === 'login') await signInWithEmail(email, password);
       else await signUpWithEmail(email, password);
     } catch (e) {
-      Alert.alert('Errore', e instanceof Error ? e.message : 'Riprova');
+      const msg = e instanceof Error ? e.message
+        : typeof e === 'object' && e !== null && 'message' in e
+          ? String((e as { message: unknown }).message)
+          : 'Errore sconosciuto';
+      setErrore(msg);
     } finally {
       setBusy(false);
     }
@@ -50,6 +56,7 @@ export default function LoginScreen() {
           value={password}
           onChangeText={setPassword}
         />
+        {errore && <Text style={styles.errore}>{errore}</Text>}
         <PixelButton
           label={busy ? 'Attendi…' : mode === 'login' ? 'Accedi' : 'Registrati'}
           onPress={handleSubmit}
@@ -88,5 +95,10 @@ const styles = StyleSheet.create({
     color: Colors.giallo,
     textAlign: 'center',
     marginTop: Spacing.md,
+  },
+  errore: {
+    color: Colors.rossoErrore,
+    textAlign: 'center',
+    fontSize: Typography.sizes.small,
   },
 });
