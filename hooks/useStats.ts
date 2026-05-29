@@ -19,7 +19,8 @@ export function useStats() {
   const salvaPartita = useCallback(
     async ({ franchiseId, difficolta, risposte, punteggio }: SaveResultArgs) => {
       const userId = await currentUserId();
-      if (!userId) return;
+      console.log('[salvaPartita] userId:', userId, 'franchiseId:', franchiseId);
+      if (!userId) { console.warn('[salvaPartita] userId null, skip'); return; }
 
       const { data: existing } = await supabase
         .from('user_stats')
@@ -83,12 +84,14 @@ export function useStats() {
 
   const leggiStats = useCallback(async (): Promise<UserStats[]> => {
     const userId = await currentUserId();
+    console.log('[leggiStats] userId:', userId);
     if (!userId) return [];
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('user_stats')
       .select('*')
       .eq('user_id', userId)
       .order('updated_at', { ascending: false });
+    console.log('[leggiStats] data:', data, 'error:', error);
     return (data ?? []).map(mapUserStats);
   }, []);
 
