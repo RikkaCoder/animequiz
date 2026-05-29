@@ -26,9 +26,12 @@ export default function QuizScreen() {
   const [scelto, setScelto] = useState<string | null>(null);
   const q = questions[currentIndex];
 
+  // Redirect home solo se il quiz non è mai stato inizializzato (nessuna domanda caricata).
+  // NON quando il quiz è finito (currentIndex >= questions.length): in quel caso
+  // è quiz.tsx stesso ad aver già navigato a /risultato.
   useEffect(() => {
-    if (!q) router.replace('/');
-  }, [q, router]);
+    if (questions.length === 0) router.replace('/');
+  }, [questions.length, router]);
 
   if (!q) return null;
 
