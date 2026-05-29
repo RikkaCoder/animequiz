@@ -32,12 +32,15 @@ export function useStats() {
 
       const corrette = risposte.filter((r) => r.corretto).length;
 
+      const domande = risposte.length;
+
       if (existing) {
         await supabase
           .from('user_stats')
           .update({
             partite_giocate: existing.partite_giocate + 1,
             risposte_corrette: existing.risposte_corrette + corrette,
+            domande_totali: existing.domande_totali + domande,
             record_punteggio: Math.max(existing.record_punteggio, punteggio),
             updated_at: new Date().toISOString(),
           })
@@ -49,6 +52,7 @@ export function useStats() {
           difficolta,
           partite_giocate: 1,
           risposte_corrette: corrette,
+          domande_totali: domande,
           record_punteggio: punteggio,
         });
       }

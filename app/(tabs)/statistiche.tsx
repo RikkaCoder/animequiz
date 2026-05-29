@@ -35,10 +35,7 @@ export default function StatisticheScreen() {
 
   const totPartite = stats.reduce((acc, s) => acc + s.partiteGiocate, 0);
   const totCorrette = stats.reduce((acc, s) => acc + s.risposteCorrette, 0);
-  const totDomande = stats.reduce(
-    (acc, s) => acc + s.partiteGiocate * 10, // stima basata su 10 domande default
-    0
-  );
+  const totDomande = stats.reduce((acc, s) => acc + s.domandeTotali, 0);
   const pctGlobale = totDomande > 0 ? Math.round((totCorrette / totDomande) * 100) : null;
 
   if (!user) {
@@ -78,8 +75,8 @@ export default function StatisticheScreen() {
               {(['facile', 'medio', 'difficile'] as Difficolta[]).map((d) => {
                 const s = stats.find((x) => x.difficolta === d);
                 if (!s) return null;
-                const pct = s.partiteGiocate > 0
-                  ? Math.round((s.risposteCorrette / (s.partiteGiocate * 10)) * 100)
+                const pct = s.domandeTotali > 0
+                  ? Math.round((s.risposteCorrette / s.domandeTotali) * 100)
                   : 0;
                 return (
                   <View key={d} style={styles.diffRow}>

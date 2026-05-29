@@ -41,6 +41,7 @@ export interface UserStats {
   difficolta: Difficolta;
   partiteGiocate: number;
   risposteCorrette: number;
+  domandeTotali: number;
   recordPunteggio: number;
   updatedAt: string;
 }

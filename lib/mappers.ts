@@ -53,6 +53,7 @@ export function mapUserStats(row: UserStatsRow): UserStats {
     difficolta: row.difficolta,
     partiteGiocate: row.partite_giocate,
     risposteCorrette: row.risposte_corrette,
+    domandeTotali: row.domande_totali,
     recordPunteggio: row.record_punteggio,
     updatedAt: row.updated_at,
   };

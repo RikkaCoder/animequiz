@@ -82,6 +82,7 @@ export interface Database {
           difficolta: Difficolta;
           partite_giocate: number;
           risposte_corrette: number;
+          domande_totali: number;
           record_punteggio: number;
           updated_at: string;
         };
@@ -92,6 +93,7 @@ export interface Database {
           difficolta: Difficolta;
           partite_giocate?: number;
           risposte_corrette?: number;
+          domande_totali?: number;
           record_punteggio?: number;
           updated_at?: string;
         };
