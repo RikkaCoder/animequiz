@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useProfile } from '@/hooks/useProfile';
 import { AVATARS } from '@/constants/config';
@@ -46,7 +46,13 @@ export default function OnboardingScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
+      {busy && (
+        <View style={styles.overlay}>
+          <ActivityIndicator size="large" color={Colors.giallo} />
+          <Text style={styles.overlayText}>Salvataggio in corso…</Text>
+        </View>
+      )}
+      <ScrollView contentContainerStyle={styles.content} pointerEvents={busy ? 'none' : 'auto'}>
         <Text style={styles.title}>Benvenuto!</Text>
         <Text style={styles.subtitle}>Scegli il tuo nickname e avatar per iniziare.</Text>
 
@@ -150,4 +156,13 @@ const styles = StyleSheet.create({
   },
   buttonDisabled: { opacity: 0.6 },
   buttonLabel: { color: Colors.bianco, fontWeight: '800', fontSize: Typography.sizes.body },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    zIndex: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: Spacing.md,
+  },
+  overlayText: { color: Colors.bianco, fontWeight: '600', fontSize: Typography.sizes.body },
 });
