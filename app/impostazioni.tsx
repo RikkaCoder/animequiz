@@ -22,7 +22,7 @@ export default function ImpostazioniScreen() {
   const initQuiz = useQuizStore((s) => s.initQuiz);
 
   const [difficolta, setDifficolta] = useState<Difficolta>('medio');
-  const [numero, setNumero] = useState<number>(DEFAULT_QUIZ_LENGTH);
+  const [numero, setNumero] = useState<number | null>(DEFAULT_QUIZ_LENGTH);
   const [busy, setBusy] = useState(false);
 
   async function avvia() {
@@ -34,8 +34,9 @@ export default function ImpostazioniScreen() {
         Alert.alert('Pochi dati', 'Non ci sono abbastanza personaggi per giocare.');
         return;
       }
-      const questions = buildQuiz(pool, numero, difficolta);
-      initQuiz({ franchiseId, difficolta, numeroDomante: numero }, questions);
+      const n = numero ?? pool.length;
+      const questions = buildQuiz(pool, n, difficolta);
+      initQuiz({ franchiseId, difficolta, numeroDomante: n }, questions);
       router.replace('/quiz');
     } catch (e) {
       Alert.alert('Errore', e instanceof Error ? e.message : 'Riprova');
@@ -61,6 +62,7 @@ export default function ImpostazioniScreen() {
           {QUIZ_LENGTHS.map((n) => (
             <Chip key={n} label={String(n)} active={n === numero} onPress={() => setNumero(n)} />
           ))}
+          <Chip label="Tutti" active={numero === null} onPress={() => setNumero(null)} />
         </View>
 
         <PixelButton label={busy ? 'Carico…' : 'Inizia'} onPress={avvia} style={{ marginTop: Spacing.lg }} />
