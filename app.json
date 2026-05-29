@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "Anime Quiz",
+    "slug": "animequiz",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "animequiz",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#1A1A2E"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.animequiz"
+    },
+    "android": {
+      "package": "com.animequiz",
+      "adaptiveIcon": {
+        "backgroundColor": "#1A1A2E"
+      }
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-secure-store"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "supabaseUrl": "https://YOUR_PROJECT.supabase.co",
+      "supabaseAnonKey": "YOUR_ANON_KEY"
+    }
+  }
+}
