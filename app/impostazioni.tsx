@@ -14,7 +14,7 @@ import { QUIZ_LENGTHS, DEFAULT_QUIZ_LENGTH } from '@/constants/config';
 import { Colors, Radius, Spacing, Typography } from '@/constants/theme';
 import type { Difficolta } from '@/types';
 
-const DIFFICOLTA: Difficolta[] = ['facile', 'medio', 'difficile'];
+const DIFFICOLTA: Difficolta[] = ['facile', 'medio', 'difficile', 'estremo'];
 
 export default function ImpostazioniScreen() {
   const { franchiseId } = useLocalSearchParams<{ franchiseId: string }>();

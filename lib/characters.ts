@@ -46,11 +46,21 @@ export async function getCharactersForQuiz(
     .eq('franchise_id', franchiseId)
     .eq('attivo', true);
 
-  if (difficolta === 'facile') {
-    query = query.eq('difficolta', 'facile');
+  // Ogni difficoltà include solo i Pokémon di pari o inferiore difficoltà.
+  // La selezione ponderata dei target avviene in buildQuiz.
+  switch (difficolta) {
+    case 'facile':
+      query = query.eq('difficolta', 'facile');
+      break;
+    case 'medio':
+      query = query.in('difficolta', ['facile', 'medio']);
+      break;
+    case 'difficile':
+      query = query.in('difficolta', ['facile', 'medio', 'difficile']);
+      break;
+    case 'estremo':
+      break; // tutti i personaggi
   }
-  // medio e difficile usano tutti i personaggi; la selezione fine
-  // dei distrattori avviene in fase di costruzione del quiz.
 
   const { data, error } = await query;
   if (error) throw error;

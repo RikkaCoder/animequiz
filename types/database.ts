@@ -5,7 +5,7 @@
  * Qui è scritto a mano come riferimento per la beta.
  */
 
-export type Difficolta = 'facile' | 'medio' | 'difficile';
+export type Difficolta = 'facile' | 'medio' | 'difficile' | 'estremo';
 
 export interface Database {
   public: {

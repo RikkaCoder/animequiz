@@ -3,7 +3,7 @@
  * Tenere questo file come unica fonte di verità per le entità.
  */
 
-export type Difficolta = 'facile' | 'medio' | 'difficile';
+export type Difficolta = 'facile' | 'medio' | 'difficile' | 'estremo';
 
 export interface Franchise {
   id: string;

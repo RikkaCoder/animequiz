@@ -12,6 +12,7 @@ const LABEL_DIFFICOLTA: Record<Difficolta, string> = {
   facile: 'Facile',
   medio: 'Medio',
   difficile: 'Difficile',
+  estremo: 'Estremo',
 };
 
 const AVATAR_EMOJI: Record<string, string> = {
@@ -122,7 +123,7 @@ export default function StatisticheScreen() {
 
               <View style={styles.card}>
                 <Text style={styles.cardTitle}>Per difficoltà</Text>
-                {(['facile', 'medio', 'difficile'] as Difficolta[]).map((d) => {
+                {(['facile', 'medio', 'difficile', 'estremo'] as Difficolta[]).map((d) => {
                   const s = stats.find((x) => x.difficolta === d);
                   if (!s) return null;
                   const pct = s.domandeTotali > 0

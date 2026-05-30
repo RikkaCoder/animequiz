@@ -11,7 +11,8 @@
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
     "seed": "tsx --env-file=.env scripts/seed_pokemon.ts",
-    "sounds": "tsx scripts/generate_sounds.ts"
+    "sounds": "tsx scripts/generate_sounds.ts",
+    "update-difficulties": "tsx --env-file=.env scripts/update_difficulties.ts"
   },
   "dependencies": {
     "@expo/metro-runtime": "^56.0.13",
